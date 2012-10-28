@@ -15,7 +15,13 @@ Background: movies in database
 
 Scenario: delete movie
   Given I am on the details page for "Star Wars"
-  And  I press "Delete"
-  Then  I should be on the home page
-  And   I should see "Movie 'Star Wars' deleted"
+  And I press "Delete"
+  Then I should be on the home page
+  And I should see "Movie 'Star Wars' deleted"
 
+Scenario: add movie
+  Given I am on the "Create New Movie" page
+  When I fill in "Title" with "Local Hero"
+  And I press "Save Changes"
+  Then I should be on the home page
+  And I should see "was successfully created"

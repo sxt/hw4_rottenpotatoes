@@ -33,6 +33,8 @@ module NavigationHelpers
     when /the Similar Movies page for "(.+)"/
       movie = Movie.find_by_title($1)
       "/movies/" + movie.id.to_s + "/samedirector"
+    when /Create New Movie/
+      "/movies/new"
     else
       begin
         page_name =~ /^the (.*) page$/
