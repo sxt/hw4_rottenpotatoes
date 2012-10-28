@@ -16,11 +16,11 @@ class MoviesController < ApplicationController
     end
     @all_ratings = Movie.all_ratings
     @selected_ratings = params[:ratings] || session[:ratings] || {}
-    
+
     if @selected_ratings == {}
       @selected_ratings = Hash[@all_ratings.map {|rating| [rating, rating]}]
     end
-    
+
     if params[:sort] != session[:sort]
       session[:sort] = sort
       flash.keep
@@ -62,6 +62,24 @@ class MoviesController < ApplicationController
     @movie.destroy
     flash[:notice] = "Movie '#{@movie.title}' deleted."
     redirect_to movies_path
+  end
+
+  def samedirector
+    base_movie = Movie.find(params[:id])
+    if base_movie.director == ""
+      flash[:notice] = "'" + base_movie.title + "' has no director info"
+      redirect_to movies_path
+      return
+    end
+
+    @movies = Movie.find_all_by_director(base_movie.director)
+    puts "-- " + @movies.size.to_s
+    @movies.each do |movie|
+      puts "-- " + movie.title
+    end
+    @selected_ratings = {}
+    @all_ratings = Movie.all_ratings
+    render :action => "index"
   end
 
 end

@@ -14,17 +14,22 @@ Given /the following movies exist/ do |movies_table|
   end
 end
 
-Then /^the director of "(.*?)" should be "(.*?)"$/ do |arg1, arg2|
-  pending # express the regexp above with the code you wish you had
+Then /^the director of "(.*?)" should be "(.*?)"$/ do |movie_name, director|
+  movie = Movie.find_by_title(movie_name)
+  movie.director.should eq(director)
 end
 
 When /^(?:|I )visit the edit page for "(.+)"$/ do |movie_name|
-  puts "## arg: " + movie_name.to_s
+  #puts "## arg: " + movie_name.to_s
   movie = Movie.find_by_title(movie_name)
-  puts "## Movie id: " + movie.id.to_s
+  #puts "## Movie id: " + movie.id.to_s
   visit path_to(movie.id.to_s+"/edit")
 end
 
+When /^I delete "([^"]*)"$/ do |arg1|
+  movie = Movie.find_by_title(movie_name)
+
+end
 
 # Make sure that one string (regexp) occurs before or after another one
 #   on the same page
