@@ -21,7 +21,9 @@ module NavigationHelpers
     #
     #   when /^(.*)'s profile page$/i
     #     user_profile_path(User.find_by_login($1))
-
+    when /^(\d+)\/edit$/
+      puts "** " + $1
+      "/movies/"+ $1.to_s + "/edit"
     else
       begin
         page_name =~ /^the (.*) page$/
